@@ -1,0 +1,59 @@
+import { AddressCreateDto } from "../../modules/dto";
+import {
+  CostumerValidationException,
+  InvalidExtraFieldException,
+} from "../../modules/errors";
+import { BaseValidation } from "../class/BaseValidation";
+
+export class AddressValidation extends BaseValidation {
+ 
+  private readonly allowedFields = [
+    "street",
+    "number",
+    "city",
+    "state",
+    "district",
+    "zipCode",
+    "complement",
+  ];
+
+
+  private validateAddress(address: AddressCreateDto ) {
+    let isValidated = false;
+
+    let safeCopyAllowedFields = [...this.allowedFields];
+
+    for (const field in address) {
+      const value = address[field];
+
+      if (!safeCopyAllowedFields?.includes(field))
+        throw new InvalidExtraFieldException(field);
+
+      if (field === "zipCode") {
+        if (!this.validateZipCode(value)) {
+          throw new CostumerValidationException(field);
+        }
+      } else if (!this.validateNormalStringField(value)) {
+        throw new CostumerValidationException(field);
+      }
+
+      safeCopyAllowedFields = safeCopyAllowedFields.filter((key) => key !== field);
+
+      isValidated = true;
+    }
+
+    if (!isValidated || safeCopyAllowedFields.length)
+      throw new InvalidExtraFieldException(
+        `Address missing fields: ${safeCopyAllowedFields?.join(", ")}`
+      );
+
+    return true;
+  }
+
+  create(dto: AddressCreateDto) {
+
+    this.validateAddress(dto);
+
+    return true;
+  }
+}
