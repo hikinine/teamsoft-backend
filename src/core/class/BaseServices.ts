@@ -1,22 +1,24 @@
-
+import { AddressUpdateDto } from "./../../modules/dto/address.update.dto";
 import { AddressCreateDto } from "../../modules/dto";
-import {  Validation, ValidationExecute } from "../types";
-import { getGeographLocation } from "../../shared/infra/providers/getGeographLocation";
+import { Validation, ValidationExecute } from "../types";
+import {
+  getGeographLocation,
+  GeographLocation,
+} from "../../shared/infra/providers/getGeographLocation";
 
 export abstract class BaseServices {
-  
   constructor(private validation: Validation) {}
 
   protected getValidation() {
-    return this.validation
+    return this.validation;
   }
 
-  protected executeValidation<K>(props: ValidationExecute<K>) {
+  protected executeValidation<Dto>(props: ValidationExecute<Dto>) {
     const { method, validations } = props;
 
     for (const [dto, key] of validations) {
-      const validator = this.validation[key];
-      validator[method].call(validator, dto);
+      this.validation[key][method]
+        .call(this.validation[key], dto);
     }
   }
 
@@ -24,17 +26,10 @@ export abstract class BaseServices {
     return getGeographLocation(zipCode);
   }
 
-  protected async buildAddressWithGeoLocate(address: AddressCreateDto) {
+  protected async buildAddressWithGeoLocate<T>(
+    address: AddressCreateDto | AddressUpdateDto
+  ): Promise<T & GeographLocation> {
     const geoLocate = await this.fetchGeoLocation(address.zipCode);
-
-    if (geoLocate.latitude === null) {
-      console.warn(
-        "WARNING, PROBABLY NOT A VALID ZIPCODE. MAY I VALIDATE IT?"
-      );
-    }    
-    return { ...address, ...geoLocate }
-
+    return { ...address, ...geoLocate } as T & GeographLocation;
   }
-
-
 }
