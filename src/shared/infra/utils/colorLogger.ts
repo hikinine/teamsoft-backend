@@ -16,10 +16,6 @@ function generate(color: number, append: string) {
   return `\x1b[${color}m${append}\x1b[0m`;
 }
 
-function isArray(obj: Logger | Logger[]) {
-  return Object.prototype.toString.call(obj) === "[object Array]";
-}
-
 export function GenerateColorByHttpMethod(method: string) {
   if (method === "HTTP") return Color.purple;
   if (method === "DELETE") return Color.red;
@@ -34,7 +30,7 @@ export function logger(props: Logger | Logger[]) {
     props instanceof Array
       ? props
           .map((prop) =>
-            prop.message.length > 4 ? generate(prop.color, prop.message) : ""
+            prop.message.length > 3 ? generate(prop.color, prop.message) : ""
           )
           .join("")
       : props.message !== "{}"
