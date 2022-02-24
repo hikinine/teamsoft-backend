@@ -1,6 +1,6 @@
 import { Repository } from "./../../core/types/index";
 import { Costumer } from "../entities/costumer";
-import { InvalidQueryException } from "../errors/InvalidQueryException";
+import { InvalidQueryException } from "../../core/errors/InvalidQueryException";
 import { CostumerCreateDto, CostumerUpdateDto, AddressCreateDto } from "../dto";
 import { BaseServices } from "../../core/class/BaseServices";
 import { Validation } from "../../core/types";
@@ -68,7 +68,7 @@ export class CostumerService extends BaseServices {
       ],
     });
 
-    const address = await this.buildAddressWithGeoLocate(dto.address);
+    const address = await this.buildAddressWithGeoLocate<AddressCreateDto>(dto.address);
 
     const costumer = new Costumer({ ...dto, address: [address] });
     return await this.repository.costumer.create(costumer);
