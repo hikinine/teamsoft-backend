@@ -37,6 +37,41 @@ export class AddressController {
     }   
   }
 
+  delete = async (request: Request, response: Response) => {
+    try {
+      const { costumer_id, id } = request.params 
+
+      if (!id) throw new Error("ID is required!")
+      if (!costumer_id) throw new Error("Icostumer_idD is required!")
+
+      const Address = await this.service.delete(costumer_id, id)
+      return response.status(200).json({
+        "message": "ADDRESS DELETED",
+        Address
+      })
+    } 
+    catch (error) {
+      return this.exception.handle(response, error)      
+    }
+  }
+  updateById = async (request: Request, response: Response) => {
+    try {
+      console.log("entrei na updatebyid address")
+      const { id } = request.params
+      const data = request.body
+      if (!id) throw new Error("ID is required!")
+
+      const Address = await this.service.updateById(id, data)
+      return response.status(200).json({
+        "message": "ADDRESS UPDATED",
+        Address
+      })
+    } 
+    catch (error) {
+      return this.exception.handle(response, error)      
+    }
+  }
+ 
   findByCostumerId = async (request: Request, response: Response) => {
     try {
       const { id } = request.params
