@@ -5,7 +5,7 @@ import {
   CostumerValidationException,
   InvalidExtraFieldException,
   InvalidQueryException,
-} from "../../../../modules/errors";
+} from "../../../../core/errors";
 
 export class ApplicationExceptionController extends BaseApplicationException{
 
