@@ -4,7 +4,6 @@ import {
   InvalidExtraFieldException,
 } from "../../modules/errors";
 import { BaseValidation } from "../class/BaseValidation";
-
 export class CostumerValidation extends BaseValidation {
   
   update(dto: Partial<CostumerUpdateDto>): boolean {
