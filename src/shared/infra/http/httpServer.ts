@@ -12,7 +12,15 @@ app.use(express.json());
 const apiVersion = process.env.API_VERSION || "v1";
 const PORT = process.env.PORT || 3000;
 
-app.use(`/${apiVersion}`, interceptAndLogger, routes);
+
+
+if (process.argv.includes("--traceHttpRequests")) {
+  app.use(`/`,interceptAndLogger);
+}
+
+
+
+app.use(`/${apiVersion}`,routes);
 
 
 app.listen(PORT, () => console.log(`⚡ Server runing on port ${PORT}`));
