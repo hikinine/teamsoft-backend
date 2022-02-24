@@ -3,7 +3,7 @@ import {
   InvalidExtraFieldException,
   InvalidQueryException,
   PrismaClientKnownRequestError,
-} from "../../modules/errors";
+} from "../errors";
 import { Catch } from "../types";
 
 export abstract class BaseApplicationException{
