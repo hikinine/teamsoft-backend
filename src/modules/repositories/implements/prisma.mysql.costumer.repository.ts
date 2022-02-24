@@ -1,4 +1,4 @@
-import { InvalidQueryException } from "./../../errors/InvalidQueryException";
+import { InvalidQueryException } from "../../../core/errors/InvalidQueryException";
 import { Costumer } from "../../entities/costumer";
 import { CostumerRepository } from "../costumer.repository";
 import db from "../../../shared/infra/prisma/client";
