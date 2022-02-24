@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
-import { BaseApplicationException } from "./BaseApplicationException";
+import { BaseApplicationException } from "../../../../core/class/BaseApplicationException";
 import {
   CostumerValidationException,
   InvalidExtraFieldException,
@@ -10,6 +10,8 @@ import {
 export class ApplicationExceptionController extends BaseApplicationException{
 
   handle(response: Response, error: unknown) {
+   
+    console.log(error)
    
     if (error instanceof CostumerValidationException) {
       return this.Validation({ response, error });
@@ -31,6 +33,8 @@ export class ApplicationExceptionController extends BaseApplicationException{
       return response.status(500).json(error.message);
     }
 
+    console.log(error)
+    
     return response.status(500).json(error);
   }
 }
