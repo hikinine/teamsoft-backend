@@ -1,35 +1,41 @@
 import { Client } from "@googlemaps/google-maps-services-js";
-import "dotenv/config"
-
-interface GeographLocation {
+import "dotenv/config";
+export interface GeographLocation {
   latitude: number | null;
   longitude: number | null;
 }
 
 const client = new Client({});
 
-export async function getGeographLocation(zipCode: string): Promise<GeographLocation> {
+const geolocationDefaultParams = {
+  region: "BRAZIL",
+  key: process.env.GOOGLE_GEOCODE_API_KEY,
+};
 
-  let geographLocation = {latitude: null, longitude: null} as GeographLocation
-
+export async function getGeographLocation(zipCode: string) {
   try {
     const { data } = await client.textSearch({
       params: {
-        region: "BRAZIL",
-        key: process.env.GOOGLE_GEOCODE_API_KEY || "",
+        ...geolocationDefaultParams,
         query: zipCode,
       },
     });
 
-    if ( data.results?.[0].geometry?.location) {
-      geographLocation = {
-        latitude: data.results?.[0].geometry?.location.lat,
-        longitude: data.results?.[0].geometry?.location.lng
-      }
+    if (!data.results?.[0].geometry?.location) {
+      throw new Error(
+        `WARNING, PROBABLY NOT A VALID ZIPCODE. MAY I VALIDATE IT?`
+      );
     }
+    return {
+      latitude: data.results?.[0].geometry?.location.lat,
+      longitude: data.results?.[0].geometry?.location.lng,
+    };
+  } catch (error) {
+    console.log(error.message);
+  }
 
-  } 
-  catch (error) { }
-
-  return geographLocation
+  return {
+    latitude: null,
+    longitude: null,
+  };
 }
