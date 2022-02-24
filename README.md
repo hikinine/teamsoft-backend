@@ -1,56 +1,43 @@
-# Teamsoft
+# Team Soft Backend Application
 
-## Quem somos
-Somos apaixonados por desenvolver soluções que fazem a diferença na vida das pessoas. 
-Conhecimento técnico é muito importante, mas acima de tudo, buscamos pessoas que queiram crescer e se desenvolver junto conosco. 
-E aí, topa o desafio? Então vem para o DreamTeam, vem para a TeamSoft! 
+This application was built with the purpose of answering the interview challenge proposed by TeamSoftBR Company, listed [here](https://github.com/Teamsoftbr/join-backend).
 
-## Proposta
-O seu desafio é criar as operações básicas de Cadastro, Leitura, Alteração e Remoção de Clientes com endereço, construir 2 entidades separadas, um cliente pode ter mais de um endereço, em uma API REST;
+## Installation
 
-## Cliente
-* CNPJ (Obrigatório)
-* Razão Social (Obrigatório)
-* Nome do Contato (Obrigatório)
-* Telefone (Obrigatório)
+```bash
+git clone https://github.com/hikinine/teamsoft-backend
+cd teamsoft-backend
+yarn install
+```
 
-## Endereço
-* Logradouro (Obrigatório)
-* Número (Obrigatório)
-* Complemento
-* Bairro (Obrigatório)
-* Cidade (Obrigatório)
-* Estado (Obrigatório)
-* CEP (Obrigatório)
-* Latitude (Somente leitura, bonus points)
-* Longitude (Somente leitura, bonus points)
+## Creating database (MySQL) with all entire schema
+This application is using [Prisma ORM](https://prisma.io). You can easily setup the database by following next steps.
+##### Fill up database creds on ```/.env``` file
 
-## Obrigatório
-* Node.js
-* Express ou Adonis
-* Validação dos campos
-* Poderá ser utilizado Mysql ou MongooDB. (se optar por Mysql, faça migration ou um .sql com o script de criação das tabelas)
+```
+DATABASE_USER=hiki9
+DATABASE_PASSWORD=password
+DATABASE_HOST=localhost
+DATABASE_PORT=3306
+```
+save the file, then
+```bash
+yarn prisma db push
+```
+#### OR (not recommended)
+access ``/src/shared/infra/prisma/migrations/*.sql`` and build by yourself.
 
-## Bonus points
-* Documentação
-* Buscar a Latitude e longitude com o google
-* TypeScript
-* Responsividade
+## Getting started
 
-## Critérios de avaliação
-* Organização do projeto
-* Lógica de programação
-* Bonus Points
-
-## Entregando o teste
-
-Suba seu projeto no github de forma pública e envie o link no formulário abaixo com seus dados.Este teste é apenas para quem se inscreveu no processo de seleção.
-
-https://forms.gle/np3R4UYxScMEpA3n9
+Since it's only for test purpose, build mode isn't available.
+Run in development mode
+```bash
+yarn dev --traceHttpRequests
+```
+#### CLI Options
+``--traceHttpRequests`` = Trace Http interface and given pretty logs.  
+``--disableErrorLog``= Disable error log on console 
 
 
----
 
-#### Boa sorte!
-
-**[Teamsoft](https://teamsoft.com.br)**
+## Documentation
