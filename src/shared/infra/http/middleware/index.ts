@@ -1,1 +1,0 @@
-export {interceptAndLogger } from "./interceptAndLogger"

@@ -3,7 +3,7 @@ import cors from "cors"
 import 'dotenv/config';
 
 import { routes } from './routes';
-import { interceptAndLogger } from './middleware';
+import { interceptAndLogger } from './middleware/intercept';
 
 const app = express();
 app.use(cors())
