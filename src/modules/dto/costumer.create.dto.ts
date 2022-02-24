@@ -1,5 +1,4 @@
 import { AddressCreateDto } from './';
-
 export interface CostumerCreateDto {
   cnpj: string,
   companyName: string,
