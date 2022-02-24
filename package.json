@@ -25,13 +25,9 @@
   "scripts": {
     "dev": "ts-node-dev --transpile-only --exit-child --respawn --ignore-watch node_modules src/shared/infra/http/app.ts",
     "test": "ts-node-dev --transpile-only --exit-child --respawn --ignore-watch node_modules src/test.ts",
-
     "reset-db-sqlite": "rm -rf ./prisma/database/*.db && yarn prisma generate && yarn prisma db push",
-
-
     "build": "tsc -p .",
     "start": "node dist/shared/infra/http/app.js"
-
   },
   "prisma": {
     "schema": "src/shared/infra/prisma/schema.prisma"
