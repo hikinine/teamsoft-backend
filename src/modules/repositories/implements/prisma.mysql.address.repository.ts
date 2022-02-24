@@ -1,7 +1,8 @@
-import { InvalidQueryException } from './../../errors/InvalidQueryException';
+import { InvalidQueryException } from '../../../core/errors/InvalidQueryException';
 import { Address } from "../../entities/address";
 import { AddressRepository } from "../address.repository";
 import db from "../../../shared/infra/prisma/client";
+import { AddressUpdateDto } from '../../dto';
 
 export class MysqlAddressRepository implements AddressRepository {
 
@@ -12,7 +13,7 @@ export class MysqlAddressRepository implements AddressRepository {
     })
 
     if (!Query)
-      throw new InvalidQueryException("Failed to find costumer_id")
+      throw new InvalidQueryException("Failed to find address id")
 
     return new Address(Query)
   }
@@ -48,12 +49,27 @@ export class MysqlAddressRepository implements AddressRepository {
     return new Address({...address, costumer_id, id: Query.id})
   }
 
-  async delete(id: string): Promise<boolean> {
-    return false
+  async deleteById(id: string): Promise<Address> {
+    const Query = await db.address.delete({
+      where: { id }
+    });
+
+    if (!Query) throw new InvalidQueryException("Costumer not found");
+
+    return new Address(Object.assign(Query || {}));
   }
   
 
-  async update(id: string, addressToUpdate: Address): Promise<Address> {
-    return {} as Address
+  async updateById(id: string, toUpdate: Partial<AddressUpdateDto>): Promise<Address> {
+
+    const Query = await db.address.update({
+      where: { id },
+      data: { ...toUpdate },
+    });
+
+    if (!Query) throw new InvalidQueryException("Failed to update");
+
+    return new Address(Object.assign(Query || {}));
   }
+  
 }
