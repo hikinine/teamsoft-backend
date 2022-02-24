@@ -1,6 +1,5 @@
 import { CostumerUpdateDto } from '../dto';
 import { Costumer } from "../entities/costumer";
-
 export interface CostumerRepository {
   create(costumer: Costumer): Promise<Costumer>
   findAll(): Promise<Costumer[]>
