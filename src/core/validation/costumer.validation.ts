@@ -2,7 +2,7 @@ import { CostumerCreateDto, CostumerUpdateDto } from "../../modules/dto";
 import {
   CostumerValidationException,
   InvalidExtraFieldException,
-} from "../../modules/errors";
+} from "../errors";
 import { BaseValidation } from "../class/BaseValidation";
 export class CostumerValidation extends BaseValidation {
   

@@ -3,7 +3,7 @@ import { AddressCreateDto } from "../../modules/dto";
 import {
   CostumerValidationException,
   InvalidExtraFieldException,
-} from "../../modules/errors";
+} from "../errors";
 import { BaseValidation } from "../class/BaseValidation";
 
 export class AddressValidation extends BaseValidation {
