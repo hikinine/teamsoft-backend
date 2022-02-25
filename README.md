@@ -41,3 +41,5 @@ yarn dev --traceHttpRequests
 
 
 ## Documentation
+
+Documentation available in ``/v1/docs``
