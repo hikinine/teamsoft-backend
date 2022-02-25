@@ -44,5 +44,5 @@ yarn dev --traceHttpRequests
 
 Documentation available in ``/v1/docs``  
 ```bash
-httplocalhost:3001/v1/docs
+http://localhost:3001/v1/docs
 ```
